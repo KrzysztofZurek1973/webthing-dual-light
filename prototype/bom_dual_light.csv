@@ -1,0 +1,19 @@
+Reference; Quantity; Value
+C1 ;1;0.1uF/275V
+C2 ;1;220uF
+C4 C3 C5 ;3;100nF
+D4 D5 ;2;1N5819
+F1 ;1;250V/1A
+J1 ;1;Screw_Terminal_01x02
+J2 ;1;Device_2
+J3 ;1;Device_1
+K1 K2 ;2;RM32N-3021-85-S005
+L1 ;1;10mH
+PS1 ;1;HLK-PM01
+Q1 Q2 ;2;BC546
+R1 R2 ;2;660
+R6 R7 ;2;1k
+RV1 ;1;250V
+SW1 ;1;Reset Button
+U1 ;1;ESP32_DevKitc_v4_part_4
+U2 U3 ;2;PC817
