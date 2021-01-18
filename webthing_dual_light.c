@@ -97,7 +97,7 @@ char timer_title[] = "Timer";
 char timer_desc[] = "Turn ON device for specified period of time";
 char timer_input_attype_str[] = "ToggleAction";
 char timer_prop_dur_id[] = "duration";
-char timer_duration_unit[] = "minutes";
+char timer_duration_unit[] = "min";
 double timer_duration_min = 1; //minutes
 double timer_duration_max = 600;
 at_type_t timer_input_attype;
