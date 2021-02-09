@@ -54,7 +54,7 @@ at_type_t dual_light_type;
 static bool device_is_on = false;
 property_t *prop_on;
 at_type_t on_prop_type;
-int8_t set_on_off(char *new_value_str); //switch ON/OFF
+int16_t set_on_off(char *new_value_str); //switch ON/OFF
 
 char on_prop_id[] = "on";
 char on_prop_disc[] = "on-off state";
@@ -65,7 +65,7 @@ char on_prop_title[] = "ON/OFF";
 property_t *prop_channel;
 at_type_t channel_prop_type;
 enum_item_t enum_ch_A, enum_ch_B, enum_ch_AB;
-int8_t set_channel(char *new_value_str);
+int16_t set_channel(char *new_value_str);
 
 char channel_prop_id[] = "channel";
 char channel_prop_disc[] = "Channel";
@@ -76,7 +76,6 @@ char channel_tab[3][4] = {"A", "B", "A+B"};
 //------  property "daily_on" - daily on time
 property_t *prop_daily_on_time;
 at_type_t daily_on_prop_type;
-action_input_prop_t *timer_duration;
 static int daily_on_time_min = 0, daily_on_time_sec = 0;
 static time_t on_time_last_update = 0;
 static TimerHandle_t timer = NULL;
@@ -96,6 +95,7 @@ char timer_id[] = "timer";
 char timer_title[] = "Timer";
 char timer_desc[] = "Turn ON device for specified period of time";
 char timer_input_attype_str[] = "ToggleAction";
+action_input_prop_t *timer_duration;
 char timer_prop_dur_id[] = "duration";
 char timer_duration_unit[] = "min";
 double timer_duration_min = 1; //minutes
@@ -115,7 +115,7 @@ void write_nvs_data(int8_t data);
  * turn the device ON or OFF
  *
  * *****************************************************************/
-int8_t set_on_off(char *new_value_str){
+int16_t set_on_off(char *new_value_str){
 
 	if (strcmp(new_value_str, "true") == 0){
 		device_is_on = true;
@@ -273,7 +273,7 @@ int8_t timer_run(char *inputs){
 * < 0 - error
 *
 *******************************************************************/
-int8_t set_channel(char *new_value_str){
+int16_t set_channel(char *new_value_str){
 	int8_t channel_is_changed = -1;
 	char *buff = NULL;
 	
