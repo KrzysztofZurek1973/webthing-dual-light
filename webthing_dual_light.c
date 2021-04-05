@@ -89,17 +89,15 @@ char daily_on_prop_title[] = "ON minutes";
 
 //------ action "timer"
 action_t *timer_action;
-int8_t timer_run(char *inputs);
+int16_t timer_run(char *inputs);
 
 char timer_id[] = "timer";
 char timer_title[] = "Timer";
 char timer_desc[] = "Turn ON device for specified period of time";
 char timer_input_attype_str[] = "ToggleAction";
 action_input_prop_t *timer_duration;
-char timer_prop_dur_id[] = "duration";
-char timer_duration_unit[] = "min";
-double timer_duration_min = 1; //minutes
-double timer_duration_max = 600;
+//char timer_prop_dur_id[] = "duration";
+//char timer_duration_unit[] = "min";
 at_type_t timer_input_attype;
 
 //task function
@@ -186,7 +184,7 @@ void timer_fun(TimerHandle_t xTimer){
  * 		- minutes of turn ON in json, e.g.: "duration":10
  *
  * *******************************************************/
-int8_t timer_run(char *inputs){
+int16_t timer_run(char *inputs){
 	int duration = 0, len;
 	char *p1, buff[6];
 	bool switched_on = false;
@@ -558,6 +556,10 @@ thing_t *init_dual_light(void){
 	add_property(dual_light, prop_daily_on_time); //add property to thing
 	
 	//create action "timer", turn on lights (device) for specified minutes
+	int_float_u timer_min, timer_max;
+	timer_min.int_val = 1; //minutes
+	timer_max.int_val = 600;
+	
 	timer_action = action_init();
 	timer_action -> id = timer_id;
 	timer_action -> title = timer_title;
@@ -566,9 +568,14 @@ thing_t *init_dual_light(void){
 	timer_input_attype.at_type = timer_input_attype_str;
 	timer_input_attype.next = NULL;
 	timer_action -> input_at_type = &timer_input_attype;
-	timer_duration = action_input_prop_init(timer_prop_dur_id,
-			VAL_INTEGER, true, &timer_duration_min, &timer_duration_max,
-			timer_duration_unit);
+	timer_duration = action_input_prop_init("duration",
+											VAL_INTEGER,
+											true,
+											&timer_min,
+											&timer_max,
+											"minutes",
+											false,
+											NULL);
 	add_action_input_prop(timer_action, timer_duration);
 	add_action(dual_light, timer_action);
 
